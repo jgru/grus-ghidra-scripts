@@ -1,4 +1,4 @@
-// Rebuild the imports of BlackMatter
+//Rebuild the imports of BlackMatter
 //@author jgru (building up on a script of larsborn)
 //@category _NEW_
 //@keybinding
@@ -20,14 +20,13 @@ import ghidra.program.model.address.Address;
 import ghidra.program.model.mem.MemoryAccessException;
 import ghidra.util.exception.CancelledException;
 
-
 public class BlackMatterApiHashing extends GhidraScript {
-	CommonGhidraUtils utils; 
-	
+	BlackMatterUtils utils;
+
 	@Override
 	public void run() throws Exception {
-		this.utils = new CommonGhidraUtils(this);
-		
+		this.utils = new BlackMatterUtils(this);
+
 		String resolverFunc;
 
 		try {
@@ -40,8 +39,8 @@ public class BlackMatterApiHashing extends GhidraScript {
 		File apiHashFile = askFile("Hash List", "Open");
 		HashMap<Long, String> hashToFunc = parseHashFile(apiHashFile);
 
-		long xorvalue = askInt("Enter the XOR key", "Enter the XOR key"); 
-		
+		long xorvalue = askInt("Enter the XOR key", "Enter the XOR key");
+
 		for (Address callAddr : utils.getCallAddresses(resolverFunc)) {
 			monitor.setMessage(String.format("parsing call at %08X", callAddr.getOffset()));
 			resolveSingleCall(callAddr, hashToFunc, xorvalue);
@@ -71,7 +70,7 @@ public class BlackMatterApiHashing extends GhidraScript {
 		// Perform the resolution and label the addresses
 		resolveApiHash(map, hashAddr, resultAddr, xorValue);
 	}
-	
+
 	private void resolveApiHash(HashMap<Long, String> hm, Address hashAddr, Address resultAddr, long xorValue) {
 		// Skip module hash
 		Address currAddr = hashAddr.add(4);
@@ -103,11 +102,11 @@ public class BlackMatterApiHashing extends GhidraScript {
 				} else {
 					this.println(String.format("%08X unknown hash %d", currAddr.getOffset(), funcName));
 					println(String.format("%08X - %08X", ah, value));
-				}				
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			currAddr = currAddr.add(4);
 			resultAddr = resultAddr.add(4);
 		}
@@ -148,5 +147,4 @@ public class BlackMatterApiHashing extends GhidraScript {
 		return hm;
 	}
 
-	
 }

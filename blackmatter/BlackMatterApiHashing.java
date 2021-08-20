@@ -1,6 +1,6 @@
 //Rebuild the imports of BlackMatter
 //@author jgru (building up on a script of larsborn)
-//@category _NEW_
+//@category
 //@keybinding
 //@menupath
 //@toolbar

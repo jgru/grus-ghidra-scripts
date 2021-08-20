@@ -1,6 +1,6 @@
 //Decodes BlackMatter's string buffers, which were crypted by using a linear congruential generator
 //@author jgru
-//@category _NEW_
+//@category
 //@keybinding 
 //@menupath 
 //@toolbar 

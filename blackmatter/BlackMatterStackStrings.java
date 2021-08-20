@@ -1,6 +1,6 @@
 //Decodes stack strings by utilizing Unicorn's emulation capabilities
 //@author jgru
-//@category _NEW_
+//@category
 //@keybinding 
 //@menupath 
 //@toolbar 
